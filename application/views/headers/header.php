@@ -27,20 +27,20 @@ if(!isset($_SESSION["id"])){
 			<div>
 				<a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> 
                 <span class="nav_logo-name">Inicio</span> </a>
-                <!-- ADMIN -->
+                <!--Admin -->
                 <?php
-                if($_SESSION["tipo"] == 1){
+                if($_SESSION["tipo"]== 1){
                     ?>
                     <div class="nav_list">
 					<a href="#" class="nav_link active" title="Documentos">
 						<i class='bx bx-book-open nav_icon'></i>
 						<span class="nav_name">Dashboard</span>
 					</a>
-					<a href="<?php echo base_url("adminPersonas") ?>" class="nav_link" title="Personas"> 
+					<a href="<?php echo base_url("adminPersonas")?>" class="nav_link" title="Personas"> 
                         <i class='bx bx-male nav_icon'></i> 
                         <span class="nav_name">Personas</span> 
                     </a> 
-                    <a href="#" class="nav_link" title="Trabajadores">
+                    <a href="<?php echo base_url("trabajadores")?>" class="nav_link" title="Trabajadores">
                         <i class='bx bx-shopping-bag nav_icon'></i>
                         <span class="nav_name">Trabajadores</span>
                     </a> 
@@ -52,29 +52,29 @@ if(!isset($_SESSION["id"])){
                         <i class='bx bx-user nav_icon'></i>
                         <span class="nav_name">Usuarios</span>
                     </a>
-					<a href="#" class="nav_link" title="Cambiar contraseña">
+					<a href="<?php echo base_url("cambiarPass")?>" class="nav_link" title="Cambiar contraseña">
                         <i class='bx bx-lock-alt nav_icon'></i>
 						<span class="nav_name">Cambiar contraseña</span>
                     </a> 
-                    </div>
+                </div>
                     <?php
                 }else{
                     ?>
                     <div class="nav_list">
-					<a href="#" class="nav_link active" title="Documentos">
-						<i class='bx bx-book-open nav_icon'></i>
-						<span class="nav_name">Documentos</span>
-					</a>
-					<a href="#" class="nav_link" title="Cambiar contraseña">
+                    <a href="#" class="nav_link" title="Trabajadores">
+                        <i class='bx bx-shopping-bag nav_icon'></i>
+                        <span class="nav_name">Trabajadores</span>
+                    </a>
+					<a href="<?php echo base_url("cambiarPass")?>" class="nav_link" title="Cambiar contraseña">
                         <i class='bx bx-lock-alt nav_icon'></i>
 						<span class="nav_name">Cambiar contraseña</span>
                     </a> 
-                    </div>
+                </div>
                     <?php
                 }
-                ?>
+                 ?>
 				
-                <!-- ADMIN -->
+                <!--Admin -->
 			</div>
 			<a href="<?php echo base_url("logout") ?>" class="nav_link" title="Cerrar sesión"> <i class='bx bx-log-out nav_icon'></i> <span
 					class="nav_name">Salir</span> </a>

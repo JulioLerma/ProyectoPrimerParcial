@@ -33,9 +33,9 @@ if(message == "borrar"){
                 }
             });
         } else if (result.isDenied) {
-          message = "";
-          id_delete = "";
           Swal.fire('No se ha borrado', '', 'info');
+          message = "";
+          id_datos= "";
           window.location.href = base_url+"adminPersonas";
         }
       });

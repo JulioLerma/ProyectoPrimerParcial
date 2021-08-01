@@ -1,17 +1,16 @@
 <?php
 class login extends CI_Model{
-    public function __construct()
-    {
+    public function __construct(){
         parent::__construct();
         date_default_timezone_set("America/Mexico_City");
     }
 
-    public function iniciarSesion($correo,$pass){
+    public function IniciarSesion($correo,$pass){
         $this->db->select("*");
         $this->db->from("login");
         $this->db->where("correo",$correo); //correo == "correo"
         $this->db->where("password",$pass);
-        $query = $this->db->get(); //ejecuta la consulta
+        $query = $this->db->get();
         return $query->row_array();
     }
 
@@ -42,11 +41,10 @@ class login extends CI_Model{
         $dataAct = array(
             "nombre" => $data["nombre"],
             "ap_paterno" => $data["ap_paterno"],
-            "ap_materno" => $data["ap_materno"]
+            "ap_materno " => $data["ap_materno"]
         );
-        $this->db->update('personas', $dataAct, array('id' => $data["id"]));
+        $this->db->update('personas', $dataAct, array('id' =>$data["id"]));
     }
-
     public function delete($tabla,$id){
         try{
             $this->db->delete($tabla, array('id' => $id));
@@ -63,5 +61,30 @@ class login extends CI_Model{
         }catch(Exception $error){
             return $error;
         }
+    }
+
+    public function update($data,$id,$tabla){
+        try {
+            $this->db->update($tabla,$data, array('id' => $id));
+            return "nice";
+        } catch (Exception $error) {
+            return $error;
+        }
+    }
+
+    public function trabajadores(){
+        $this->db->select("*");
+        $this->db->from("trabajadores");
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function actInfoTrabaajdores($data){
+        $dataAct = array(
+            "id_departamento" => $data["id_departamento"],
+            "puesto" => $data["puesto"],
+            "estado " => $data["estado"]
+        );
+        $this->db->update('trabajadores', $dataAct, array('id' =>$data["id"]));
     }
 }

@@ -44,7 +44,7 @@ if(!isset($_SESSION["id"])){
                         <i class='bx bx-shopping-bag nav_icon'></i>
                         <span class="nav_name">Trabajadores</span>
                     </a> 
-                    <a href="#" title="Departamentos" class="nav_link">
+                    <a href="<?php echo base_url("departamentos")?>" title="Departamentos" class="nav_link">
                         <i class='bx bx-buildings nav_icon'></i>
                         <span class="nav_name">Departamentos</span>
                     </a>

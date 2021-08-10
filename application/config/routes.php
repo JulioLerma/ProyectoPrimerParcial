@@ -67,3 +67,18 @@ $route['updatePass'] = 'loginController/updatePass';
 $route['trabajadores'] = 'loginController/trabajadores';
 $route['editTrabajador/(:any)'] = 'loginController/editTrabajador/$1';
 $route['actInfoTrabaajdores'] = 'loginController/actInfoTrabaajdores';
+$route['deleteTrabajador/(:any)'] = 'loginController/deleteTrabajador/$1';
+
+//apartado de departamentos
+$route['cambiarPass'] = 'loginController/cambiarPass';
+$route['updatePass'] = 'loginController/updatePass';
+$route['departamentos'] = 'loginController/departamentos';
+$route['editDepartamento/(:any)'] = 'loginController/editDepartamento/$1';
+$route['actInfoDepartamentos'] = 'loginController/actInfoDepartamentos';
+$route['deleteDepartamento/(:any)'] = 'loginController/deleteDepartamento/$1';
+$route['insert/(:any)'] = 'loginController/insert/$1';
+$route['addDepartamento'] = 'loginController/addDepartamento';
+$route['confirmDelete'] = 'loginController/confirmDelete';
+$route['prueba'] = 'loginController/prueba';
+$route['confirmDeleteDepartamento'] = 'loginController/confirmDeleteDepartamento';
+$route['insertDepartamentos/(:any)'] = 'loginController/insertDepartamentos/$1';

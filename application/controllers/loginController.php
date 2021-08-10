@@ -138,6 +138,32 @@ class loginController extends CI_Controller{
         print_r($data);
     }
 
+    public function deleteTrabajador($id){
+        $this->session->set_flashdata("id_delete",$id);
+        $this->session->set_flashdata('message','borrar');
+        $this->load->view("inicio/trabajadores/trabajadores");
+    }
+    public function confirmDeleteTrabaajdores(){
+        $id = $_POST["id"];
+        $res = $this->login->deleteTrabajadores("trabajadores",$id);
+        echo $res;
+    }
+
+    public function addTrabajador(){
+        $res = $this->login->selectAlldepartamentos("departamentos");
+        $data["departamentos"] = $res;
+        $this->load->view("inicio/trabajadores/addtrabajador",$data);
+    }
+
+    public function insertTrabajador($tabla){
+        $data = $this->input->post();
+        $data["fecha_registro"] = date("Y-m-d");
+        $data["hora_registro"] = date("H:i:s");
+        $data["estado"] = 1;
+        $res = $this->login->insert($data,$tabla);
+        $res == "nice" ? $this->session->set_flashdata('message','success') : $this->session->set_flashdata('message','errorInsert');
+        redirect(base_url("trabajadores"));
+    }
   
     public function adminUsuarios(){
         $res = $this->login->adminUsuarios();

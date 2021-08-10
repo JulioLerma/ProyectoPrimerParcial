@@ -87,4 +87,20 @@ class login extends CI_Model{
         );
         $this->db->update('trabajadores', $dataAct, array('id' =>$data["id"]));
     }
+
+    public function deleteTrabajadores($tabla,$id){
+        try{
+            $this->db->delete($tabla, array('id' => $id));
+            return "nice";
+        }catch(Exception $error){
+            return $error;
+        }
+    }
+
+    public function selectAlldepartamentos(){
+        $this->db->select("*");
+        $this->db->from("departamentos");    
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

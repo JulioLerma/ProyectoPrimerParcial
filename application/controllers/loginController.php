@@ -11,24 +11,23 @@ class loginController extends CI_Controller{
     public function index(){
         $this->load->view("login/index");
     }
+
     public function validarLogin(){
         $data = $this->input->post();
         $res = $this->login->getPass($data["correo"]); //verifica que existe el correo
-        //print_r($res);
         if($res == ""){
             $this->session->set_flashdata('message','error');
             redirect(base_url());
         }else{
             $pass = $res['password'];
-           
             if(password_verify($data["contra"],$pass)){
                 if(!isset($_SESSION["id"])){
                     session_start();
                     $_SESSION["id"] = $res["id"];
                     $_SESSION["tipo"] = $res["tipo_usuario"];
+                    $_SESSION["id_persona"] = $res["id_persona"];
                     redirect(base_url("inicio"));
                 }else{
-                    
                     redirect(base_url("inicio"));
                 }
             }else{
@@ -36,9 +35,7 @@ class loginController extends CI_Controller{
                 redirect(base_url());
                 $this->session->set_flashdata('message','');
             }
-
         }
-        
     }
 
     public function inicio(){
@@ -91,7 +88,7 @@ class loginController extends CI_Controller{
         $data["estado"] = 1;
         $res = $this->login->insert($data,$tabla);
         $res == "nice" ? $this->session->set_flashdata('message','success') : $this->session->set_flashdata('message','errorInsert');
-        redirect(base_url("adminPersonas"));
+        redirect(base_url("inicio"));
     }
 
     public function logout(){
@@ -195,4 +192,68 @@ class loginController extends CI_Controller{
         $res == "nice" ? $this->session->set_flashdata('message','success') : $this->session->set_flashdata("message","errorInsert");
         redirect(base_url("adminUsuarios"));
     }
+    //Apartado de documentos
+
+    public function adminDocumentos(){
+        $res = $this->login->selectAll("documentos");
+        $data["documentos"] = $res;
+        $this->load->view("inicio/documentos/index",$data);
+    }
+
+    public function addDocumento(){
+        $res = $this->login->selectAll("personas");
+        $data["personas"] = $res;
+        $this->load->view("inicio/documentos/addDocumento",$data);
+    }
+
+    public function editDocumento($id){
+        $res = $this->login->getInfo("documentos",$id);
+        $data["documento"] = $res;
+        $res = $this->login->selectAll("personas");
+        $_SESSION["personas"] = $res;
+        $this->load->view("inicio/documentos/editDocumento",$data);
+
+    }
+
+    public function actInfo($tabla){
+        $data = $this->input->post();
+        $res = $this->login->actInfo($data,$tabla);
+        $res == 1 ? $this->session->set_flashdata('message','cambioAct'):$this->session->set_flashdata('message','errorAct');
+        if($_SESSION["tipo"] == 1){
+            redirect(base_url("adminDocumentos"));
+        }else{
+            redirect(base_url("userDocumentos"));
+        }
+        
+    }
+
+    public function deleteDocumento($id){
+        $this->session->set_flashdata("id_delete",$id);
+        $this->session->set_flashdata('message','borrarDocumento');
+        redirect(base_url("adminDocumentos"));
+    }
+
+    public function confirmDeleteDocumentos(){
+        $id = $_POST["id"];
+        $res = $this->login->delete("documentos",$id);
+        echo $res;
+    }
+
+    public function userDocumentos(){
+        $res = $this->login->selectAllCondition("documentos","id_persona",$_SESSION["id_persona"]);
+        $data["documentos"] = $res;
+        $this->load->view("inicio/documentos/userDocumentos",$data);
+    }
+
+    public function addDocumentoUser(){
+        $this->load->view("inicio/documentos/addDocumentoUser");
+    }
+
+    public function editDocumentoUser($id){
+        $res = $this->login->getInfo("documentos",$id);
+        $data["documento"] = $res;
+        $this->load->view("inicio/documentos/editDocumentoUser",$data);
+    }
+
+    //Apartado de documentos
 }

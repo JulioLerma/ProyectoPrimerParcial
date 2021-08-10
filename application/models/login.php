@@ -7,7 +7,7 @@ class login extends CI_Model{
 
     public function IniciarSesion($correo,$pass){
         $this->db->select("*");
-        $this->db->from("login");
+        $this->db->from("usuarios");
         $this->db->where("correo",$correo); //correo == "correo"
         $this->db->where("password",$pass);
         $query = $this->db->get();
@@ -15,8 +15,8 @@ class login extends CI_Model{
     }
 
     public function getPass($correo){
-        $this->db->select("password,id,tipo_usuario");
-        $this->db->from("login");
+        $this->db->select("password,id,tipo_usuario,id_persona");
+        $this->db->from("usuarios");
         $this->db->where("correo",$correo);
         $query = $this->db->get();
         return $query->row_array();
@@ -88,7 +88,6 @@ class login extends CI_Model{
         $this->db->update('trabajadores', $dataAct, array('id' =>$data["id"]));
     }
 
-
     public function adminUsuarios(){
         $this->db->select("*");
         $this->db->from("usuarios");
@@ -136,4 +135,29 @@ class login extends CI_Model{
             return $th;
         }
     }
+    //Apartado de docuemntos
+    public function selectAll($tabla){ //Esta funcion la puede usar cualquiera si es el caso
+        $this->db->select("*");
+        $this->db->from($tabla);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function actInfo($data,$tabla){
+        try{
+            $this->db->update($tabla, $data, array('id' =>$data["id"]));
+            return true;
+        }catch(Exception $error){
+            return $error;
+        }
+    }
+
+    public function selectAllCondition($tabla,$columna,$valor){
+        $this->db->select("*");
+        $this->db->from($tabla);
+        $this->db->where($columna,$valor);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    //Apartado de documentos
 }

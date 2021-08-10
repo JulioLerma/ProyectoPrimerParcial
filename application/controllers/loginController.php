@@ -140,4 +140,59 @@ class loginController extends CI_Controller{
         }
         print_r($data);
     }
+
+  
+    public function adminUsuarios(){
+        $res = $this->login->adminUsuarios();
+        $_SESSION["usuarios"] = $res;
+        $this->load->view("inicio/usuarios/usuarios");
+    }
+
+    public function editUsuario($id){
+        $res = $this->login->getInfoUsuario("usuarios",$id);
+        $_SESSION["datosEditUsuario"] = $res;
+        $this->load->view("inicio/usuarios/editUsuario");
+    }
+
+    public function actInfoUsuarios(){
+        $data = $this->input->post();
+        try {
+            $res = $this->login->actInfoUsuarios($data);
+            redirect(base_url("adminUsuarios"));
+        } catch (Exception $th) {
+            echo $th;
+        }
+        print_r($data);
+    }
+
+    public function deleteUsuario($id){
+        $this->session->set_flashdata("id_delete", $id);
+        $this->session->set_flashdata('message','borrar');
+        $this->load->view("inicio/usuarios/usuarios");
+    }
+
+    public function confirmDeleteUsuario(){
+        $id = $_POST["id"];
+        $res = $this->login->deleteTbUsuario("usuarios",$id);
+        echo $res;
+    }
+
+    public function addUsuario(){
+        $res = $this->login->selectAllUsuarios("personas");
+        $data["personas"] = $res;
+        $this->load->view("inicio/usuarios/addUsuario",$data);
+        //$this->load->view("inicio/personas/addUsuario");
+    }
+
+    public function insertUsuarios($tabla){
+        $data = $this->input->post();
+        $data["fecha_registro"] = date("Y-m-d");
+        $data["hora_registro"] = date("H:i:s");
+        $pass_encriptada = password_hash("123456789",PASSWORD_DEFAULT);
+        $data["password"] = $pass_encriptada;
+        $data["estado"] = 1;
+        $res = $this->login->insertUsuario($data,$tabla);
+        $res == "nice" ? $this->session->set_flashdata('message','success') : $this->session->set_flashdata("message","errorInsert");
+        redirect(base_url("adminUsuarios"));
+    }
 }

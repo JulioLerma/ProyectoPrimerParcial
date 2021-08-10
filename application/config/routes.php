@@ -67,3 +67,11 @@ $route['updatePass'] = 'loginController/updatePass';
 $route['trabajadores'] = 'loginController/trabajadores';
 $route['editTrabajador/(:any)'] = 'loginController/editTrabajador/$1';
 $route['actInfoTrabaajdores'] = 'loginController/actInfoTrabaajdores';
+
+$route["adminUsuarios"] = 'loginController/adminUsuarios';
+$route["editUsuario/(:any)"] = 'loginController/editUsuario/$1';
+$route["actInfoUsuarios"] = "loginController/actInfoUsuarios";
+$route["deleteUsuario/(:any)"] = "loginController/deleteUsuario/$1";
+$route["confirmDeleteUsuario"] = "loginController/confirmDeleteUsuario";
+$route["addUsuario"] = "loginController/addUsuario";
+$route["insertUsuarios/(:any)"] = "loginController/insertUsuarios/$1";

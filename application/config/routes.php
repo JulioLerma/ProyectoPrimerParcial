@@ -67,3 +67,14 @@ $route['updatePass'] = 'loginController/updatePass';
 $route['trabajadores'] = 'loginController/trabajadores';
 $route['editTrabajador/(:any)'] = 'loginController/editTrabajador/$1';
 $route['actInfoTrabaajdores'] = 'loginController/actInfoTrabaajdores';
+//Apartado de documentos
+$route["adminDocumentos"] = "loginController/adminDocumentos";
+$route["addDocumento"] = "loginController/addDocumento";
+$route["editDocumento/(:any)"] = "loginController/editDocumento/$1";
+$route["actInfo/(:any)"] = "loginController/actInfo/$1";
+$route["deleteDocumento/(:any)"] = "loginController/deleteDocumento/$1";
+$route["confirmDeleteDocumentos"] = "loginController/confirmDeleteDocumentos";
+//Apartado de documentos de usuario común
+$route["userDocumentos"] = "loginController/userDocumentos";
+$route["addDocumentoUser"] = "loginController/addDocumentoUser";
+$route["editDocumentoUser/(:any)"] = "loginController/editDocumentoUser/$1";

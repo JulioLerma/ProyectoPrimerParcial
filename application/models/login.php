@@ -15,6 +15,7 @@ class login extends CI_Model{
     }
 
     public function getPass($correo){
+        $this->db->select("password,id,tipo_usuario");
         $this->db->select("password,id,tipo_usuario,id_persona");
         $this->db->from("usuarios");
         $this->db->where("correo",$correo);
@@ -96,6 +97,33 @@ class login extends CI_Model{
             return $error;
         }
     }
+    //apartado de departamento
+
+    public function departamentos(){
+        $this->db->select("*");
+        $this->db->from("departamentos");
+        $query = $this->db->get();
+        return $query->result_array();
+}
+
+public function actInfoDepartamentos($data){
+    $dataAct = array(
+        "nombre_departamento" => $data["nombre_departamento"]
+    
+    );
+    $this->db->update('departamentos', $dataAct, array('id' =>$data["id"]));
+}
+
+public function deleteDepartamentos($tabla,$id){
+    try{
+        $this->db->delete($tabla, array('id' => $id));
+        return "nice";
+    }catch(Exception $error){
+        return $error;
+    }
+}
+
+
 
     public function selectAlldepartamentos(){
         $this->db->select("*");

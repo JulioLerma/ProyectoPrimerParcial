@@ -11,6 +11,13 @@ class loginController extends CI_Controller{
     public function index(){
         $this->load->view("login/index");
     }
+    public function prueba(){
+        echo 'funcion'; 
+
+    }
+    public function validarLogin(){
+        $data = $this->input->post();
+        $res = $this->login->getPass($data["correo"]);
 
     public function validarLogin(){
         $data = $this->input->post();
@@ -18,8 +25,10 @@ class loginController extends CI_Controller{
         if($res == ""){
             $this->session->set_flashdata('message','error');
             redirect(base_url());
+            
         }else{
             $pass = $res['password'];
+            //$pass_encriptada = password_hash($data["contra"],PASSWORD_DEFAULT);
             if(password_verify($data["contra"],$pass)){
                 if(!isset($_SESSION["id"])){
                     session_start();
@@ -29,14 +38,16 @@ class loginController extends CI_Controller{
                     redirect(base_url("inicio"));
                 }else{
                     redirect(base_url("inicio"));
-                }
+                    }
             }else{
                 $this->session->set_flashdata('message','verify');
                 redirect(base_url());
+               }
                 $this->session->set_flashdata('message','');
             }
         }
     }
+    
 
     public function inicio(){
         $this->load->view("inicio/index");
@@ -115,29 +126,48 @@ class loginController extends CI_Controller{
         }
     }
 
-    public function trabajadores(){
-        $res = $this->login->trabajadores();
-        $_SESSION["trabajadores"]= $res;
-        $this->load->view("inicio/trabajadores/trabajadores");
+    
+
+    //apartado de departamentos
+
+    public function departamentos(){
+        $res = $this->login->departamentos();
+        $_SESSION["departamentos"]= $res;
+        $this->load->view("inicio/departamentos/departamentos");
     }
 
-    public function editTrabajador($id){
-        $res = $this->login->getInfo("trabajadores",$id);
-        $_SESSION["datosEditTrabajadores"]= $res;
-        $this->load->view("inicio/trabajadores/editTrabajador");
+    public function editDepartamento($id){
+        $res = $this->login->getInfo("departamentos",$id);
+        $_SESSION["datosEditDepartamentos"]= $res;
+        $this->load->view("inicio/departamentos/editDepartamento");
     }
 
-    public function actInfoTrabaajdores(){
+    public function actInfoDepartamentos(){
         $data = $this->input->post();
         try{
-            $res = $this->login->actInfoTrabaajdores($data);
-            redirect(base_url("trabajadores"));
+            $res = $this->login->actInfoDepartamentos($data);
+            redirect(base_url("departamentos"));
         }catch(Exception $error){
             echo $error;
         }
         print_r($data);
     }
 
+    public function deleteDepartamento($id){
+        $this->session->set_flashdata("id_delete",$id);
+        $this->session->set_flashdata('message','borrar');
+        $this->load->view("inicio/departamentos/departamentos");
+    }
+    public function confirmDeleteDepartamento(){
+        $id = $_POST["id"];
+        $res = $this->login->deleteDepartamentos("departamentos",$id);
+        echo $res;
+    }
+
+    public function addDepartamento(){
+        $this->load->view("inicio/departamentos/addDepartamento");
+    }
+    public function insertDepartamentos($tabla){
     public function deleteTrabajador($id){
         $this->session->set_flashdata("id_delete",$id);
         $this->session->set_flashdata('message','borrar');
@@ -162,6 +192,10 @@ class loginController extends CI_Controller{
         $data["estado"] = 1;
         $res = $this->login->insert($data,$tabla);
         $res == "nice" ? $this->session->set_flashdata('message','success') : $this->session->set_flashdata('message','errorInsert');
+        redirect(base_url("departamentos"));
+    }
+
+
         redirect(base_url("trabajadores"));
     }
   

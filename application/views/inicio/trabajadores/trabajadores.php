@@ -7,7 +7,6 @@
                 <th>ID</th>
                 <th>Id Departamento</th>
                 <th>Puesto</th>
-                
                 <th>Estado</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
@@ -21,7 +20,6 @@
                         <td><?php echo $trabajadores["id"] ?></td>
                         <td><?php echo $trabajadores["id_departamento"] ?></td>
                         <td><?php echo $trabajadores["puesto"] ?></td>
-                   
                         <td><?php echo $trabajadores["estado"] ?></td>
                         <td><a href="<?php echo base_url("editTrabajador/".$trabajadores["id"]) ?>"><button class="btn btn-warning">Editar</button></a></td>
                         <td><a href="<?php echo base_url("deleteTrabajador/".$trabajadores["id"]) ?>"><button class="btn btn-danger">Eliminar</button></a></td>

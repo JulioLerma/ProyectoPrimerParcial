@@ -8,8 +8,7 @@ if(message == "borrar"){
         if (result.isConfirmed) {
             $.ajax({
                 type: "POST",
-                url: base_url + 'confirmDeleteDepartamento',
-                //url: base_url + 'confirmDeleteTrabaajdores',
+                url: base_url + 'confirmDeleteUsuario',
                 data: {
                     'id': id_delete
                 },
@@ -20,27 +19,24 @@ if(message == "borrar"){
                             'Se ha eliminado!',
                             'success'
                           ).then(function(){
-                            //window.location.href = base_url+"departamentos";
-                            window.location.href = base_url+"trabajadores";
+                            window.location.href = base_url+"adminUsuarios";
                           })
                     }else{
                         Swal.fire(
                             'Lo sentimos',
                             data,
                             'error'
-                          ).then(function(){¿
-                            //window.location.href = base_url+"departamentos";
-                            window.location.href = base_url+"trabajadores";
+                          ).then(function(){
+                            window.location.href = base_url+"adminUsuarios";
                           })
                     }
                 }
             });
         } else if (result.isDenied) {
-          Swal.fire('No se ha borrado', '', 'info');
-          message = "";
-          id_datos= "";
-          //window.location.href = base_url+"departamentos";
-          window.location.href = base_url+"trabajadores"
+            Swal.fire('No se ha borrado', '', 'info');
+            message = "";
+            id_delete = "";
+            window.location.href = base_url+"adminUsuarios";
         }
       });
 }

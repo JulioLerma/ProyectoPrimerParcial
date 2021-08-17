@@ -19,7 +19,7 @@ if(message == "borrar"){
                             'Se ha eliminado!',
                             'success'
                           ).then(function(){
-                            window.location.href = base_url+"trabajadores";
+                            window.location.href = base_url+"";
                           })
                     }else{
                         Swal.fire(
@@ -27,7 +27,7 @@ if(message == "borrar"){
                             data,
                             'error'
                           ).then(function(){
-                            window.location.href = base_url+"trabajadores";
+                            window.location.href = base_url+"";
                           })
                     }
                 }
@@ -36,7 +36,7 @@ if(message == "borrar"){
           Swal.fire('No se ha borrado', '', 'info');
           message = "";
           id_datos= "";
-          window.location.href = base_url+"trabajadores";
+          window.location.href = base_url+"";
         }
       });
 }

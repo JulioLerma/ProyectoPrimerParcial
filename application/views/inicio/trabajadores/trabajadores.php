@@ -32,7 +32,7 @@
         </tbody>
     </table>
     <div class="row">
-        <a href="<?php echo base_url("addPersona") ?>" class="btn btn-block btn-success btn-lg">Agregar trabajador</a>
+        <a href="<?php echo base_url("addTrabajador") ?>" class="btn btn-block btn-success btn-lg">Agregar trabajador</a>
     </div>
 	</div>
     <script type="text/javascript">
@@ -42,4 +42,4 @@
     var id_delete = "<?php echo $this->session->flashdata('id_delete'); ?>"
     </script>
 	<?php $this->load->view("footers/footer") ?>
-    <script src="<?php echo base_url("resources/js/delete.js")?>"></script>
+    <script src="<?php echo base_url("resources/js/deleteTrabajadores.js")?>"></script>
